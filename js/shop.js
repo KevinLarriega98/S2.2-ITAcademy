@@ -102,8 +102,14 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
 
 // Exercise 2
 const cleanCart = () => {
+    cart.length = 0
 
+    printCart()
+    document.getElementById('count_product').textContent = '0'
+    document.getElementById('total_price').textContent = '0'
 }
+
+document.getElementById('clean-cart').addEventListener('click', cleanCart)
 
 // Exercise 3
 const calculateTotal = () => {
