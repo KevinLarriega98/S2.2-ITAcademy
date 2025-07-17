@@ -76,22 +76,42 @@ const total = 0;
 
 // Exercise 1
 const buy = (id) => {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cart array
+    const product = products.find(p => p.id === id)
+
+    if (!product) return
+
+
+    const cartItem = cart.find(p => p.id === id)
+
+    if (cartItem) {
+        cartItem.quantity += 1
+    } else {
+        const productToAdd = { ...product, quantity: 1 }
+        cart.push(productToAdd)
+    }
+
+    console.log(cart)
 }
 
+document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', () => {
+        const id = parseInt(button.dataset.productId)
+        buy(id)
+    })
+})
+
 // Exercise 2
-const cleanCart = () =>  {
+const cleanCart = () => {
 
 }
 
 // Exercise 3
-const calculateTotal = () =>  {
+const calculateTotal = () => {
     // Calculate total price of the cart using the "cartList" array
 }
 
 // Exercise 4
-const applyPromotionsCart = () =>  {
+const applyPromotionsCart = () => {
     // Apply promotions to each item in the array "cart"
 }
 
@@ -108,6 +128,6 @@ const removeFromCart = (id) => {
 
 }
 
-const open_modal = () =>  {
+const open_modal = () => {
     printCart();
 }
