@@ -113,12 +113,28 @@ document.getElementById('clean-cart').addEventListener('click', cleanCart)
 
 // Exercise 3
 const calculateTotal = () => {
-    // Calculate total price of the cart using the "cartList" array
+    let total = 0
+
+    cart.forEach(product => {
+        total += product.price * product.quantity
+    })
+
+    return total
 }
 
 // Exercise 4
 const applyPromotionsCart = () => {
-    // Apply promotions to each item in the array "cart"
+    cart.forEach(product => {
+        if (product.offer && product.quantity >= product.offer.number) {
+            const discount = product.price * (product.offer.percent / 100)
+            const discountedPrice = product.price - discount
+            const subtotalWithDiscount = discountedPrice * product.quantity
+
+            product.subtotalWithDiscount = parseFloat(subtotalWithDiscount.toFixed(2))
+        } else {
+            delete product.subtotalWithDiscount
+        }
+    })
 }
 
 // Exercise 5
