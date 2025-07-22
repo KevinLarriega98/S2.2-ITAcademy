@@ -1,9 +1,10 @@
 const products = [
     {
         id: 1,
-        name: 'cooking oil',
+        name: 'Cooking oil',
         price: 10.5,
         type: 'grocery',
+        image: '../images/Cooking oil.png',
         offer: {
             number: 3,
             percent: 20
@@ -13,13 +14,15 @@ const products = [
         id: 2,
         name: 'Pasta',
         price: 6.25,
-        type: 'grocery'
+        type: 'grocery',
+        image: '../images/Pasta.png'
     },
     {
         id: 3,
         name: 'Instant cupcake mixture',
         price: 5,
         type: 'grocery',
+        image: '../images/Instant cupcake mixture.png',
         offer: {
             number: 10,
             percent: 30
@@ -29,37 +32,43 @@ const products = [
         id: 4,
         name: 'All-in-one',
         price: 260,
-        type: 'beauty'
+        type: 'beauty',
+        image: '../images/All-in-one.png'
     },
     {
         id: 5,
         name: 'Zero Make-up Kit',
         price: 20.5,
-        type: 'beauty'
+        type: 'beauty',
+        image: '../images/Zero Make-up Kit.png'
     },
     {
         id: 6,
         name: 'Lip Tints',
         price: 12.75,
-        type: 'beauty'
+        type: 'beauty',
+        image: '../images/Lip Tints.png',
     },
     {
         id: 7,
         name: 'Lawn Dress',
         price: 15,
-        type: 'clothes'
+        type: 'clothes',
+        image: '../images/Lawn Dress.png'
     },
     {
         id: 8,
         name: 'Lawn-Chiffon Combo',
         price: 19.99,
-        type: 'clothes'
+        type: 'clothes',
+        image: '../images/Lawn-Chiffon Combo.png'
     },
     {
         id: 9,
         name: 'Toddler Frock',
         price: 9.99,
-        type: 'clothes'
+        type: 'clothes',
+        image: '../images/Toddler Frock.png'
     }
 ]
 
@@ -72,7 +81,6 @@ const buy = (id) => {
     const product = products.find(p => p.id === id)
 
     if (!product) return
-
 
     const cartItem = cart.find(p => p.id === id)
 
@@ -88,7 +96,7 @@ const buy = (id) => {
     applyPromotionsCart()
     printCart()
 
-    document.getElementById('count_product').textContent = cart.length
+    document.getElementById('count_product').textContent = cart.reduce((acc, item) => acc + item.quantity, 0)
 }
 
 document.querySelectorAll('.add-to-cart').forEach(button => {
@@ -150,9 +158,14 @@ function printCart() {
         total += subtotal
 
         tr.innerHTML = `
+            <td><img src="${product.image}" alt="${product.name}" class="cart-image-product"/></td>
             <th scope="row">${product.name}</th>
             <td>$${product.price}</td>
-            <td>${product.quantity}</td>
+            <td>
+                <button class="btn btn-sm btn-outline-secondary decrease-qty" data-product-id="${product.id}">-</button>
+                <span>${product.quantity}</span>
+                <button class="btn btn-sm btn-outline-secondary increase-qty" data-product-id="${product.id}">+</button>
+            </td>
             <td>$${subtotal.toFixed(2)}</td>
         `
 
@@ -160,13 +173,48 @@ function printCart() {
     })
 
     totalPriceSpan.textContent = total.toFixed(2)
+
+    document.querySelectorAll('.increase-qty').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = parseInt(button.dataset.productId)
+            increaseQuantity(id)
+        })
+    })
+
+    document.querySelectorAll('.decrease-qty').forEach(button => {
+        button.addEventListener('click', () => {
+            const id = parseInt(button.dataset.productId)
+            removeFromCart(id)
+        })
+    })
 }
 
 // ** Nivell II **
 
 // Exercise 7
 const removeFromCart = (id) => {
+    const index = cart.findIndex(p => p.id === id)
+    if (index !== -1) {
+        if (cart[index].quantity > 1) {
+            cart[index].quantity -= 1
+        } else {
+            cart.splice(index, 1)
+        }
 
+        applyPromotionsCart()
+        printCart()
+        document.getElementById('count_product').textContent = cart.reduce((acc, item) => acc + item.quantity, 0)
+    }
+}
+
+const increaseQuantity = (id) => {
+    const item = cart.find(p => p.id === id)
+    if (item) {
+        item.quantity += 1
+        applyPromotionsCart()
+        printCart()
+        document.getElementById('count_product').textContent = cart.reduce((acc, item) => acc + item.quantity, 0)
+    }
 }
 
 const open_modal = () => {
