@@ -1,66 +1,116 @@
-# Sprint 2 IT Academy | Shop
+# 🛒 Sprint 2 - E-Commerce
 
-## Introduction
+This is a front-end project created as part of ITACADEMY Front-End Bootcamp. The goal is to implement a basic shopping cart experience using vanilla JavaScript. The user can add and remove items, apply discounts, and validate a checkout form. No back-end or API integration is used; all data is hardcoded.
 
-A company in the e-commerce sector has asked us for a web application that allows them to offer the purchase of their products through the internet.
+---
 
-You will be in charge of setting up an initial demo version of the application for the client: management of the shopping cart and the application of the promotions on the final price. You have 1 week to finish this part of sprint (2.2).
+## 💻 Technologies Used
 
-<br>
+- HTML, CSS (Bootstrap for some styles)
+- Vanilla JavaScript
+- RegEx for form validation
 
-## Requirements
+---
 
+## 🚀 Getting Started
 
-1. Clone this repo
-```bash
-$ git clone https://github.com/IT-Academy-BCN/starter-code-frontend-shop
-```
-
-2. Unlink your repo from the itacademy repository.
-(Explanation: You have to upload the code to your GitHub repository, not to the IT Academy. That's why you have to unlink your project from IT Academy GitHub with the following command)
+### Clone the Repository
 
 ```bash
-$ git remote rm origin
+git clone https://github.com/KevinLarriega98/S2.2-ITAcademy.git
+cd S2.2-ITAcademy
 ```
 
-3. Link your repo to the repository you have to create in your github account
-(Explanation: Now your project is not linked to any remote repository. In order to upload your code, you have to link your project to the new repository created on github.com using the following command)
+---
 
-```bash
-$ git remote add origin <your repo name!>
-```
+## ✅ Exercises Overview
 
-<br>
+### 🧩 Exercise 1: Add Products to Cart
 
-## Submission
-
-1. It is necessary to upload each exercise in a separate commit. The commit name must clearly indicate its content.
-
-2. Upload the link to your GitHub repository to the virtual campus, enabling your mentor to review and provide feedback.
-
-
-
-<br>
-
-## Introduction
-
-The statement of the exercise is available on the virtual campus.
-
-<br>
+- Implemented the `buy(id)` function to allow users to add products to the cart.
+- Retrieved the product from the `products` array using its `id`.
+- Checked if the product was already in the cart:
+  - If it exists, increased the `quantity` by 1.
+  - If not, added it to the cart with an initial `quantity` of 1.
+- Called `applyPromotionsCart()` and `printCart()` after each addition to apply discounts and update the UI.
+- Updated the cart counter displayed in the navigation using the total quantity of items in the cart.
+- Attached event listeners to all `.add-to-cart` buttons to trigger the `buy()` function with the correct product ID.
 
 
-## Instructions
+---
 
-You have the following indications from the frontend manager:
+### 🧹 Exercise 2: Clean Cart
 
-- You have prepared the base of the project on which you will work: https://github.com/IT-Academy-BCN/starter-code-frontend-shop
+- Implemented the `cleanCart()` function to reset the shopping cart.
+- Emptied the `cart` array by setting its length to `0`.
+- Updated the UI by calling `printCart()` and resetting the product counter and total price to `0`.
+- Added an event listener to the `#clean-cart` button to trigger the `cleanCart()` function on click.
 
-- The base of the project on which you will work has already created all the files, and an initial version of the interface, so you can focus on programming the logic.
+---
 
-- As at the moment we don't consume data from a server using an API, we will work with hardcoded data in the application. For the moment we will implement the logic using a small group of 9 products divided in 3 sections.
+### 💰 Exercise 3: Calculate Cart Total
 
-- Except for the last level, showing the result of the functions by console is enough.
+- Implemented the `calculateTotal()` function to sum up the total value of the cart.
+- Used a `forEach` loop to iterate through the cart and multiply each product’s `price` by its `quantity`.
+- Accumulated the result in the `total` variable and returned it.
 
-- The logic to implement will be placed in the src/grocery.js and src/checkout.js files. You will see that the built in functions have already been created for you to implement them.
+---
 
-- It is forbidden to copy the code, since this way you don't learn anything. Furthermore, as you can see, the second release of sprint 5 is a mini-level test with the mentor, in which you will have to demonstrate live that you have acquired the javascript concepts. Don't worry, if you work on the releases you won't have any problems.
+### 🎁 Exercise 4: Apply Promotions
+
+- Implemented the `applyPromotionsCart()` function to dynamically apply promotions based on quantity.
+- For each product in the cart:
+  - If a product has an `offer` and its `quantity` meets the required threshold, a percentage discount is applied.
+  - Calculated the new discounted price and stored the total in a new field called `subtotalWithDiscount`.
+  - If the product doesn't meet the promotion conditions, the `subtotalWithDiscount` property is removed.
+- Used `toFixed(2)` to round the result to two decimal places and parsed it as a float.
+
+---
+
+### 🛒 Exercise 5: Display the Cart in Modal
+
+- Implemented the `printCart()` function to render the cart inside the modal with ID `cartModal`.
+- The product table was made dynamic by:
+  - Clearing the table body before rendering (`cartList.innerHTML = ""`).
+  - Iterating over each product in the `cart` array and creating a table row (`<tr>`) with:
+      - Product image.
+      - Product name.
+      - Unit price.
+      - Quantity with `+` and `−` buttons.
+      - Subtotal, considering `subtotalWithDiscount` if available.
+  - Appending each row to the cart table.
+- The total price is calculated and displayed at the bottom.
+- Event listeners were added to the `+` and `−` buttons to allow the user to adjust quantities directly from the modal.
+
+---
+
+### ✅ Exercise 6: Checkout Form Validation
+
+- Implemented form validation logic in `checkout.js` for the checkout page.
+- Set up input references and their associated error message elements using `window.onload`.
+- Defined regular expressions for:
+  - Name/surname (letters only)
+  - Phone number (9 digits)
+  - Email format
+  - Passwords (must include at least one letter and one number)
+- Created a generic `validateField()` function to check:
+  - Minimum input length (at least 3 characters)
+  - Optional regex pattern if provided
+- Attached `blur` event listeners to validate fields as users leave each input.
+- Final validation is triggered by the `validate()` function on form submission:
+  - Displays appropriate error messages.
+  - Shows an alert for success or prompts the user to fix the errors.
+
+---
+
+### 📋 Exercise 7: Remove and Increase Item Quantity in Cart
+
+- Implemented the `removeFromCart(id)` function to allow users to decrease the quantity of a product in the cart:
+  - Finds the product by its `id`.
+  - If the quantity is greater than 1, it decreases it by one.
+  - If the quantity is 1, it removes the product entirely from the cart.
+  - Recalculates promotions with `applyPromotionsCart()` and re-renders the cart UI with `printCart()`.
+  - Updates the total product count displayed in the header.
+- Additionally, created an `increaseQuantity(id)` function to let users increment the quantity of a product directly from the modal:
+  - Finds the product by its `id` and increases the quantity by one.
+  - Reapplies promotions, updates the cart, and refreshes the product count in the header.
