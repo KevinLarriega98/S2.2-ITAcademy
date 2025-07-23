@@ -91,8 +91,6 @@ const buy = (id) => {
         cart.push(productToAdd)
     }
 
-    console.log(cart)
-
     applyPromotionsCart()
     printCart()
 
@@ -119,13 +117,7 @@ document.getElementById('clean-cart').addEventListener('click', cleanCart)
 
 // Exercise 3
 const calculateTotal = () => {
-    let total = 0
-
-    cart.forEach(product => {
-        total += product.price * product.quantity
-    })
-
-    return total
+    return cart.reduce((acc, product) => acc + product.price * product.quantity, 0)
 }
 
 // Exercise 4
