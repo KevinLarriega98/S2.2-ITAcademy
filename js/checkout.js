@@ -4,6 +4,7 @@ const onlyLettersRegex = /^[a-zA-ZÀ-ÿ\s]+$/
 const phoneRegex = /^[0-9]{9}$/
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/
 const emailRegex = /^\S+@\S+\.\S+$/
+const addressRegex = /^[a-zA-Z0-9\s,'\-\.#]{3,}$/
 
 window.onload = () => {
 	fName = document.getElementById('fName')
@@ -30,7 +31,7 @@ window.onload = () => {
 		{ field: fEmail, error: errorEmail, regex: emailRegex },
 		{ field: fPhone, error: errorPhone, regex: phoneRegex },
 		{ field: fPassword, error: errorPassword, regex: passwordRegex },
-		{ field: fAddress, error: errorAddress }
+		{ field: fAddress, error: errorAddress, regex: addressRegex }
 	]
 
 	fieldsToValidate.forEach(({ field, error, regex }) => {
@@ -61,7 +62,7 @@ const validate = () => {
 	if (!validateField(fEmail, errorEmail, emailRegex)) isValid = false
 	if (!validateField(fPhone, errorPhone, phoneRegex)) isValid = false
 	if (!validateField(fPassword, errorPassword, passwordRegex)) isValid = false
-	if (!validateField(fAddress, errorAddress)) isValid = false
+	if (!validateField(fAddress, errorAddress, addressRegex)) isValid = false
 
 	if (!isValid) {
 		alert('Please fix errors before submitting.')

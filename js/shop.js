@@ -4,7 +4,7 @@ const products = [
         name: 'Cooking oil',
         price: 10.5,
         type: 'grocery',
-        image: '../images/Cooking oil.png',
+        image: '../images/cooking-oil.png',
         offer: {
             number: 3,
             percent: 20
@@ -15,14 +15,14 @@ const products = [
         name: 'Pasta',
         price: 6.25,
         type: 'grocery',
-        image: '../images/Pasta.png'
+        image: '../images/pasta.png'
     },
     {
         id: 3,
         name: 'Instant cupcake mixture',
         price: 5,
         type: 'grocery',
-        image: '../images/Instant cupcake mixture.png',
+        image: '../images/instant-cupcake-mixture.png',
         offer: {
             number: 10,
             percent: 30
@@ -33,28 +33,28 @@ const products = [
         name: 'All-in-one',
         price: 260,
         type: 'beauty',
-        image: '../images/All-in-one.png'
+        image: '../images/all-in-one.png'
     },
     {
         id: 5,
         name: 'Zero Make-up Kit',
         price: 20.5,
         type: 'beauty',
-        image: '../images/Zero Make-up Kit.png'
+        image: '../images/zero-make-up-kit.png'
     },
     {
         id: 6,
         name: 'Lip Tints',
         price: 12.75,
         type: 'beauty',
-        image: '../images/Lip Tints.png',
+        image: '../images/lip-tints.png',
     },
     {
         id: 7,
         name: 'Lawn Dress',
         price: 15,
         type: 'clothes',
-        image: '../images/Lawn Dress.png'
+        image: '../images/lawn-dress.png'
     },
     {
         id: 8,
@@ -68,13 +68,11 @@ const products = [
         name: 'Toddler Frock',
         price: 9.99,
         type: 'clothes',
-        image: '../images/Toddler Frock.png'
+        image: '../images/toddler-frock.png'
     }
 ]
 
 const cart = []
-
-const total = 0
 
 // Exercise 1
 const buy = (id) => {
@@ -159,6 +157,7 @@ function printCart() {
                 <button class="btn btn-sm btn-outline-secondary increase-qty" data-product-id="${product.id}">+</button>
             </td>
             <td>$${subtotal.toFixed(2)}</td>
+            <td>${(product.offer && product.quantity >= product.offer.number) ? product.offer.percent + '%' : '0%'}</td>
         `
 
         cartList.appendChild(tr)

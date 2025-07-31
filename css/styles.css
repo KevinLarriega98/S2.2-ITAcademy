@@ -368,6 +368,23 @@ th {
   border-width: 0;
 }
 
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3),
+th:nth-child(6),
+td:nth-child(6) {
+  white-space: nowrap;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+thead th:nth-child(4) {
+  text-align: center;
+  width: 90px;
+}
+
 label {
   display: inline-block;
 }
@@ -5167,11 +5184,6 @@ fieldset:disabled .btn {
   height: 40px;
   object-fit: cover;
   border-radius: 5px;
-}
-
-thead th:nth-child(4) {
-  text-align: center;
-  width: 20%;
 }
 
 .card {
